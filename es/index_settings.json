@@ -1,0 +1,60 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 0,
+    "analysis": {
+      "filter": {
+        "search_synonyms": {
+          "type": "synonym_graph",
+          "synonyms_path": "analysis/synonyms.txt",
+          "updateable": true
+        },
+        "english_stemmer": {
+          "type": "stemmer",
+          "language": "english"
+        }
+      },
+      "analyzer": {
+        "index_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding", "english_stemmer"]
+        },
+        "search_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": ["lowercase", "asciifolding", "search_synonyms", "english_stemmer"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "id": { "type": "keyword" },
+      "name": {
+        "type": "text",
+        "analyzer": "index_analyzer",
+        "search_analyzer": "search_analyzer",
+        "fields": { "raw": { "type": "keyword" } }
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "index_analyzer",
+        "search_analyzer": "search_analyzer"
+      },
+      "brand": {
+        "type": "text",
+        "analyzer": "index_analyzer",
+        "search_analyzer": "search_analyzer",
+        "fields": { "raw": { "type": "keyword" } }
+      },
+      "category": { "type": "keyword" },
+      "price": { "type": "float" },
+      "in_stock": { "type": "boolean" },
+      "stock_qty": { "type": "integer" },
+      "rating": { "type": "float" },
+      "popularity_score": { "type": "float" },
+      "created_at": { "type": "date" }
+    }
+  }
+}

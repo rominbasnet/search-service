@@ -1,0 +1,7 @@
+# Format: comma-separated = interchangeable (expands both ways at query time)
+sneaker, sneakers, trainer, trainers, running shoe, running shoes
+tv, television
+laptop, notebook computer
+headphones, earphones, headset
+sofa, couch
+fridge, refrigerator
